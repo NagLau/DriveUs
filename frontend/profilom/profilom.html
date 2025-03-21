@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../profilom/profilom.css">
+    <title>DriveUs - Profilom</title>
+</head>
+<body>
+    <header>
+        <div class="logo" id="focim">DriveUs</div>
+        <nav>
+            <a href="../hirlap/hirlap.html">HÍRLAP</a>
+            <a href="../autok/autok.html">AUTÓK</a>
+            <a href="../berleseim/berleseim.html">BÉRLÉSEIM</a>
+            <a href="../fooldal/index.html">FŐOLDAL</a>
+        </nav>
+        <div id="google_translate_element"></div>
+    </header>
+
+    <main>
+        <div class="container mt-5">
+            <div class="profile-update-section">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="profile-info">
+                            <h2>Profil információk</h2>
+                            <p>Frissítsd a profilodat, hogy mindig naprakész legyen.</p>
+                            <div id="current-profile" class="mb-3">
+                                <p><strong>Felhasználónév:</strong> <span id="current-username">Nincs adat</span></p>
+                                <p><strong>Személyi szám:</strong> <span id="current-personal-id">Nincs adat</span></p>
+                                <p><strong>Jogosítványszám:</strong> <span id="current-license-number">Nincs adat</span></p>
+                            </div>
+                            <div id="current-profile-img" class="profile-img-container">
+                                <img src="" alt="Profilkép" class="img-fluid" id="current-profile-image">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="profile-form">
+                            <h2>Profil frissítése</h2>
+                            <form id="profile-form">
+                                <div class="mb-3">
+                                    <label for="username" class="form-label">Új felhasználónév</label>
+                                    <input type="text" class="form-control" id="username" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="personal-id" class="form-label">Személyi szám</label>
+                                    <input type="text" class="form-control" id="personal-id" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="license-number" class="form-label">Jogosítványszám</label>
+                                    <input type="text" class="form-control" id="license-number" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100">Adatok frissítése</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="membership-section mt-5">
+                <h2 class="text-center mb-4">Tagság előnyök</h2>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Előnyök</th>
+                            <th>Új tag</th>
+                            <th>Bronz tag</th>
+                            <th>Ezüst tag</th>
+                            <th>Arany tag</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Okosfoglalás</td>
+                            <td class="checkmark">✔</td>
+                            <td class="checkmark">✔</td>
+                            <td class="checkmark">✔</td>
+                            <td class="checkmark">✔</td>
+                        </tr>
+
+                        <tr>
+                            <td>Kedvezményes kuponok</td>
+                            <td class="checkmark">✔</td>
+                            <td class="checkmark">✔</td>
+                            <td class="checkmark">✔</td>
+                            <td class="checkmark">✔</td>
+                        </tr>
+
+                        <tr>
+                            <td>Kiemelt támogatás</td>
+                            <td></td>
+                            <td class="checkmark">✔</td>
+                            <td class="checkmark">✔</td>
+                            <td class="checkmark">✔</td>
+                        </tr>
+
+                        <tr>
+                            <td>Nincs lemondási díj</td>
+                            <td></td>
+                            <td></td>
+                            <td class="checkmark">✔</td>
+                            <td class="checkmark">✔</td>
+                        </tr>
+
+                        <tr>
+                            <td>Maximális kedvezmény</td>
+                            <td></td>
+                            <td>20%</td>
+                            <td>30%</td>
+                            <td>40%</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="d-flex justify-content-center">
+                    <button onclick="openModal('Bronz tag', '20')" class="btn btn-secondary me-2">Havi bronz tag vásárlása</button>
+                    <button onclick="openModal('Ezüst tag', '30')" class="btn btn-secondary me-2">Havi ezüst tag vásárlása</button>
+                    <button onclick="openModal('Arany tag', '40')" class="btn btn-secondary">Havi arany tag vásárlása</button>
+                </div>
+
+            </div>
+        </div>
+        
+    </main>
+
+    <footer>
+        <img src="../logo.jpg" alt="DriveUs Logo" id="footer-img">
+        <p id="email">Vegye fel velünk a kapcsolatot: <a href="mailto:driveus.car.rent@gmail.com">driveus.car.rent@gmail.com</a></p>
+        <p id="footer_p">© 2025 DriveUs - Luxus autóbérlés</p>
+    </footer>
+
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({pageLanguage: 'hu'}, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script src="profilom.js"></script>
+</body>
+</html>

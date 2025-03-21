@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DriveUs – Autóbérlés</title>
+    <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../autok/autok.css">
+</head>
+<body>
+    <header>
+        <div class="logo" id="focim">DriveUs</div>
+        <nav>
+            <a href="../hirlap/hirlap.html">HÍRLAP</a>
+            <a href="../berleseim/berleseim.html">BÉRLÉSEIM</a>
+            <a href="../profilom/profilom.html">PROFILOM</a>
+            <a href="../fooldal/index.html">FŐOLDAL</a>
+        </nav>
+        <div id="google_translate_element"></div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1>Bérelj prémium autót, és indulj útnak stílusosan!</h1>
+            <p>Válaszd ki álmaid autóját, és foglald le egyszerűen.</p>
+            <a href="#ajanlatok" class="btn-primary">Ajánlatok megtekintése</a>
+        </section>
+
+        <section class="filter-container">
+            <h2 id="aktualis" class="mb-4 text-center">Aktuális ajánlataink</h2>
+            <p id="szuroszoveg">Autó szűrő</p>
+            <form action="#" method="GET" class="filter-form">
+                <label for="tipus">Autó típus:</label>
+                <select id="tipus" name="car-type">
+                    <option value="sport">Sport autó</option>
+                    <option value="csaladi">Családi autó</option>
+                    <option value="teher">Teher autó</option>
+                    <option value="luxus">Luxus autó</option>
+                </select>
+                <label for="szin">Szín:</label>
+                <select id="szin" name="color">
+                    <option value="kek">Kék</option>
+                    <option value="fekete">Fekete</option>
+                    <option value="piros">Piros</option>
+                    <option value="szurke">Szürke</option>
+                </select>
+                <button type="submit" class="filter-btn">Szűrés</button>
+            </form>
+        </section>
+
+        <section class="featured-car">
+            <h2>Kiemelt ajánlatunk</h2>
+            <div class="featured-card">
+                <img src="lambo.jpg" alt="Lamborghini">
+                <div class="featured-info">
+                    <h3>Lamborghini Huracán</h3>
+                    <p>• 5.2L V10 motor • 631 LE • 0-100 km/h 2,9 másodperc</p>
+                    <p>• Exkluzív olasz dizájn, lenyűgöző teljesítménnyel</p>
+                    <p>• Luxus beltér, versenypályára optimalizált technológia</p>
+                    <button onclick="openCarDetails('Lamborghini Huracán', 'lambo.jpg', ['5.2L V10 motor', '631 LE', '0-100 km/h 2,9 másodperc', 'Exkluzív olasz dizájn, lenyűgöző teljesítménnyel', 'Luxus beltér, versenypályára optimalizált technológia'])">Érdekel</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="ajanlatok" class="cars">
+            <div class="car-container">
+                <div class="car-card">
+                    <img src="../fooldal/bkep3.jpg" alt="Toyota Camry">
+                    <h3>Toyota Camry</h3>
+                    <p>• Hibrid motor • 208 LE • 2018–2023</p>
+                    <p>• Alacsony fogyasztás, kiváló városi és autópályás vezetéshez</p>
+                    <p>• Tágas, kényelmes belső tér prémium anyagokkal</p>
+                    <p>• Adaptív tempomat és fejlett vezetéstámogató rendszerek</p>
+                    <button onclick="openCarDetails('Toyota Camry', '../fooldal/bkep3.jpg', ['Hibrid motor', '208 LE', '2018–2023', 'Alacsony fogyasztás, kiváló városi és autópályás vezetéshez', 'Tágas, kényelmes belső tér prémium anyagokkal', 'Adaptív tempomat és fejlett vezetéstámogató rendszerek'])">Érdekel</button>
+                </div>
+
+                <div class="car-card">
+                    <img src="../fooldal/bkep1.jpg" alt="Aston Martin D9">
+                    <h3>Aston Martin D9</h3>
+                    <p>• V12 szívómotor • 450–517 LE • 2004–2016</p>
+                    <p>• Ikonikus brit luxusautó, elegáns és sportos megjelenéssel</p>
+                    <p>• 0-100 km/h 4,2 másodperc alatt, kézi és automata váltóval</p>
+                    <p>• Bőr és karbon betétes belső tér, prémium hifi rendszerrel</p>
+                    <button onclick="openCarDetails('Aston Martin D9', '../fooldal/bkep1.jpg', ['V12 szívómotor', '450–517 LE', '2004–2016', 'Ikonikus brit luxusautó, elegáns és sportos megjelenéssel', '0-100 km/h 4,2 másodperc alatt, kézi és automata váltóval', 'Bőr és karbon betétes belső tér, prémium hifi rendszerrel'])">Érdekel</button>
+                </div>
+
+                <div class="car-card">
+                    <img src="../fooldal/bkep2.jpg" alt="Toyota Supra">
+                    <h3>Toyota Supra</h3>
+                    <p>• 3.0L szívómotor • 280–320 LE • 2002–2020</p>
+                    <p>• Hátsókerék-meghajtás, dinamikus vezetési élmény</p>
+                    <p>• Legendás japán sportautó, kiváló teljesítménnyel és megbízhatósággal</p>
+                    <p>• Állítható sportfutómű és aerodinamikus dizájn</p>
+                    <button onclick="openCarDetails('Toyota Supra', '../fooldal/bkep2.jpg', ['3.0L szívómotor', '280–320 LE', '2002–2020', 'Hátsókerék-meghajtás, dinamikus vezetési élmény', 'Legendás japán sportautó, kiváló teljesítménnyel és megbízhatósággal', 'Állítható sportfutómű és aerodinamikus dizájn'])">Érdekel</button>
+                </div>
+
+                <div class="car-card">
+                    <img src="benz.jpg" alt="Mercedes-Benz G63 AMG">
+                    <h3>Mercedes-Benz G63 AMG</h3>
+                    <p>• 4.0L V8 biturbó • 577 LE • 2019–2024</p>
+                    <p>• Ikonikus off-road jármű, luxus és teljesítmény egyben</p>
+                    <p>• Exkluzív belső tér, fűthető ülések és high-end hifi rendszer</p>
+                    <p>• Összkerékhajtás és három differenciálzár a legkeményebb terepre</p>
+                    <button onclick="openCarDetails('Mercedes-Benz G63 AMG', 'benz.jpg', ['4.0L V8 biturbó', '577 LE', '2019–2024', 'Ikonikus off-road jármű, luxus és teljesítmény egyben', 'Exkluzív belső tér, fűthető ülések és high-end hifi rendszer', 'Összkerékhajtás és három differenciálzár a legkeményebb terepre'])">Érdekel</button>
+                </div>
+
+                <div class="car-card">
+                    <img src="tesla.jpg" alt="Tesla Model S Plaid">
+                    <h3>Tesla Model S Plaid</h3>
+                    <p>• Elektromos hajtás • 1020 LE • 2021–jelen</p>
+                    <p>• 0-100 km/h 2,1 másodperc alatt, futurisztikus technológia</p>
+                    <p>• 600+ km hatótáv, gyorstöltési lehetőség</p>
+                    <p>• Full önvezető funkciók és 17" központi érintőképernyő</p>
+                   <button onclick="openCarDetails('Tesla Model S Plaid', 'tesla.jpg', ['Elektromos hajtás', '1020 LE', '2021–jelen', '0-100 km/h 2,1 másodperc alatt, futurisztikus technológia', '600+ km hatótáv, gyorstöltési lehetőség', 'Full önvezető funkciók és központi érintőképernyő'])">Érdekel</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <img src="../logo.jpg" alt="DriveUs Logo" id="footer-img">
+        <p id="email">Vegye fel velünk a kapcsolatot: <a href="mailto:driveus.car.rent@gmail.com">driveus.car.rent@gmail.com</a></p>
+        <p id="footer_p">© 2025 DriveUs - Luxus autóbérlés</p>
+    </footer>
+
+    <script type="text/javascript">
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({pageLanguage: 'hu'}, 'google_translate_element');
+    }
+</script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script src="../autok/autok.js"></script>
+</body>
+</html>
+ 

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">Bejelentkezés</title>
+    <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../belepes/bejelentkezes.css">
+</head>
+<body>
+    <div class="container">
+        <h1 id="main-title">Bejelentkezés</h1>
+        <div id="google_translate_element"></div>
+        <form id="loginForm">
+            <label for="loginUsername" id="username-label">Felhasználónév:</label>
+            <input type="text" id="loginUsername" name="loginUsername" placeholder="Felhasználónév" required>
+           
+            <label for="loginPassword" id="password-label">Jelszó:</label>
+            <input type="password" id="loginPassword" name="loginPassword" placeholder="Jelszó" required>
+           
+            <button type="submit" id="login-button">Bejelentkezés</button>
+        </form>
+        <div id="message"></div>
+        <button id="register-button" onclick="window.location.href='regisztracio.html'" class="btn btn-link">Regisztráció</button>
+        <p><a id="adminos" href="../admin/index.html" id="admin-link" class="btn btn-warning">Belépés az Admin oldalra</a></p>
+    </div>
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({pageLanguage: 'hu'}, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script src="../belepes/bejelentkezes.js"></script>
+</body>
+</html>
