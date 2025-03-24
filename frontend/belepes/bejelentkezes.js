@@ -5,7 +5,10 @@ document.getElementById('loginForm')?.addEventListener('submit', function (event
     const messageDiv = document.getElementById('message');
     const storedUsername = localStorage.getItem('username');
     const storedPassword = localStorage.getItem('password');
+    const storedEmail = localStorage.getItem('email');
+
     if (loginUsername === storedUsername && loginPassword === storedPassword) {
+        localStorage.setItem('loggedInUser', JSON.stringify({ username: loginUsername, password: loginPassword, email: storedEmail }));
         messageDiv.textContent = 'Sikeres bejelentkezés!';
         messageDiv.style.color = 'green';
         setTimeout(() => {
@@ -16,8 +19,6 @@ document.getElementById('loginForm')?.addEventListener('submit', function (event
         messageDiv.style.color = 'red';
     }
 });
-
-
 
 document.addEventListener("DOMContentLoaded", function () {
     const switchButton = document.querySelector(".language-switcher");
@@ -50,4 +51,3 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     switchButton.addEventListener("click", switchLanguage);
 });
-

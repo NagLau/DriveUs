@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Modal megnyitása képek nagyításához
     function openModal(imgElement) {
         var modal = document.createElement('div');
         modal.classList.add('modal', 'open');
@@ -13,7 +12,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Szűrő űrlap kezelése
     document.querySelector('.filter-form').addEventListener('submit', function(e) {
         e.preventDefault();
         const carType = document.getElementById('tipus').value;
@@ -21,10 +19,14 @@ document.addEventListener('DOMContentLoaded', function () {
         alert(`Szűrt autók: ${carType} - ${color}`);
     });
 
-    // Autó részletező ablak megnyitása
+    const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+    if (loggedInUser) {
+        document.getElementById('loggedInUser').textContent = `Bejelentkezve: ${loggedInUser.username} (${loggedInUser.email})`;
+    }
+
     window.openCarDetails = function(carName, imgSrc, details) {
-        const currentDate = new Date('2025-03-19'); // Fix dátum 2025.03.19.
-        const formattedCurrentDate = currentDate.toISOString().split('T')[0]; // YYYY-MM-DD formátum
+        const today = new Date();
+        const formattedToday = today.toISOString().split('T')[0];
 
         const detailsPage = `
             <!DOCTYPE html>
@@ -252,6 +254,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     footer p {
                         font-size: 1rem;
                         font-weight: 600;
+                        color: black;
                     }
                 </style>
             </head>
@@ -277,12 +280,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 </div>
                 <div id="reservationForm" class="reservation-form">
                     <h3>Foglalás: ${carName}</h3>
-                    <input type="text" id="name" placeholder="Név" required>
-                    <input type="email" id="email" placeholder="E-mail" required>
+                    <input type="text" id="name" placeholder="Név" value="${loggedInUser ? loggedInUser.username : ''}" required>
+                    <input type="email" id="email" placeholder="E-mail" value="${loggedInUser ? loggedInUser.email : ''}" required>
                     <label for="startDate">Foglalás kezdete</label>
-                    <input type="date" id="startDate" min="${formattedCurrentDate}" value="${formattedCurrentDate}" required>
+                    <input type="date" id="startDate" min="${formattedToday}" value="${formattedToday}" required>
                     <label for="endDate">Foglalás vége</label>
-                    <input type="date" id="endDate" min="${formattedCurrentDate}" value="${formattedCurrentDate}" required>
+                    <input type="date" id="endDate" min="${formattedToday}" value="${formattedToday}" required>
+                    <input type="password" id="password" placeholder="Jelszó ellenőrzés" required>
                     <button onclick="submitReservation('${carName}')">Foglalás küldése</button>
                 </div>
                 <footer>
@@ -313,8 +317,6 @@ document.addEventListener('DOMContentLoaded', function () {
                         if (form) {
                             form.classList.add('open');
                             updateEndDateMin();
-                        } else {
-                            console.error('Reservation form not found');
                         }
                     }
 
@@ -339,13 +341,19 @@ document.addEventListener('DOMContentLoaded', function () {
                         var email = document.getElementById('email').value;
                         var startDate = document.getElementById('startDate').value;
                         var endDate = document.getElementById('endDate').value;
-                        var currentDate = new Date('2025-03-19');
+                        var password = document.getElementById('password').value;
+                        var today = new Date();
                         var selectedStartDate = new Date(startDate);
                         var selectedEndDate = new Date(endDate);
+                        var storedUser = JSON.parse(localStorage.getItem('loggedInUser'));
 
-                        if (name && email && startDate && endDate) {
-                            if (selectedStartDate < currentDate) {
-                                alert('A foglalás kezdete nem lehet korábbi, mint a mai nap (2025.03.19.)!');
+                        if (name && email && startDate && endDate && password) {
+                            if (storedUser && (name !== storedUser.username || email !== storedUser.email || password !== storedUser.password)) {
+                                alert('A foglaláshoz a bejelentkezett felhasználó adatait kell használni!');
+                                return;
+                            }
+                            if (selectedStartDate < today) {
+                                alert('A foglalás kezdete nem lehet korábbi, mint a mai nap!');
                                 return;
                             }
                             if (selectedEndDate < selectedStartDate) {
@@ -354,20 +362,21 @@ document.addEventListener('DOMContentLoaded', function () {
                             }
                             var duration = startDate + "/" + endDate;
                             var subject = "Autófoglalás - " + carName;
-                            var body = "Tisztelt DriveUs!\\n\\n" +
-                                       "Szeretném lefoglalni az alábbi autót:\\n" +
-                                       "Név: " + name + "\\n" +
-                                       "Autó: " + carName + "\\n" +
-                                       "Foglalás időtartama: " + duration + "\\n\\n" +
-                                       "Kérem, vegyék fel velem a kapcsolatot a részletek egyeztetéséhez!\\n\\n" +
-                                       "Üdvözlettel,\\n" + name;
+                            var body = "Tisztelt DriveUs!\n\n" +
+                                       "Szeretném lefoglalni az alábbi autót:\n" +
+                                       "Név: " + name + "\n" +
+                                       "Autó: " + carName + "\n" +
+                                       "Foglalás időtartama: " + duration + "\n\n" +
+                                       "Kérem, vegyék fel velem a kapcsolatot a részletek egyeztetéséhez!\n\n" +
+                                       "Üdvözlettel,\n" + name;
                             var mailtoLink = "mailto:driveus.car.rent@gmail.com?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body) + "&from=" + encodeURIComponent(email);
                             window.location.href = mailtoLink;
                             document.getElementById('reservationForm').classList.remove('open');
-                            document.getElementById('name').value = '';
-                            document.getElementById('email').value = '';
-                            document.getElementById('startDate').value = '${formattedCurrentDate}';
-                            document.getElementById('endDate').value = '${formattedCurrentDate}';
+                            document.getElementById('name').value = storedUser ? storedUser.username : '';
+                            document.getElementById('email').value = storedUser ? storedUser.email : '';
+                            document.getElementById('startDate').value = formattedToday;
+                            document.getElementById('endDate').value = formattedToday;
+                            document.getElementById('password').value = '';
                         } else {
                             alert('Kérjük, töltse ki az összes mezőt!');
                         }

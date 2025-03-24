@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title id="page-title">Bejelentkezés</title>
-    <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="bejelentkezes.css">
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../belepes/bejelentkezes.html">
 </head>
 <body>
     <div class="container">
@@ -14,22 +14,23 @@
         <form id="loginForm">
             <label for="loginUsername" id="username-label">Felhasználónév:</label>
             <input type="text" id="loginUsername" name="loginUsername" placeholder="Felhasználónév" required>
-           
             <label for="loginPassword" id="password-label">Jelszó:</label>
             <input type="password" id="loginPassword" name="loginPassword" placeholder="Jelszó" required>
-           
             <button type="submit" id="login-button">Bejelentkezés</button>
         </form>
         <div id="message"></div>
         <button id="register-button" onclick="window.location.href='regisztracio.html'" class="btn btn-link">Regisztráció</button>
-        <p><a id="adminos" href="../admin/index.html" id="admin-link" class="btn btn-warning">Belépés az Admin oldalra</a></p>
+        <p><a id="adminos" href="../admin/index.html" class="btn btn-warning">Belépés az Admin oldalra</a></p>
     </div>
+    <footer>
+        <p style="color: black;">© 2025 DriveUs - Luxus autóbérlés</p>
+    </footer>
     <script type="text/javascript">
         function googleTranslateElementInit() {
             new google.translate.TranslateElement({pageLanguage: 'hu'}, 'google_translate_element');
         }
     </script>
     <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-    <script src="bejelentkezes.js"></script>
-</body>
+    <script src="../belepes/bejelentkezes.js"></script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'92551cc24edfafb9',t:'MTc0MjgwODIzMy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
