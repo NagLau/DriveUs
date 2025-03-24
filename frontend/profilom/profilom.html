@@ -27,10 +27,10 @@
                         <div class="profile-info">
                             <h2>Profil információk</h2>
                             <p>Frissítsd a profilodat, hogy mindig naprakész legyen.</p>
-                            <div id="current-profile" class="mb-3">
-                                <p><strong>Felhasználónév:</strong> <span id="current-username">Nincs adat</span></p>
-                                <p><strong>Személyi szám:</strong> <span id="current-personal-id">Nincs adat</span></p>
-                                <p><strong>Jogosítványszám:</strong> <span id="current-license-number">Nincs adat</span></p>
+                            <div>
+                                <p><strong>Felhasználónév:</strong> <span id="current-username-display">Nincs adat</span></p>
+                                <p><strong>Személyi szám:</strong> <span id="current-personal-id-display">Nincs adat</span></p>
+                                <p><strong>Jogosítványszám:</strong> <span id="current-license-number-display">Nincs adat</span></p>
                             </div>
                             <div id="current-profile-img" class="profile-img-container">
                                 <img src="" alt="Profilkép" class="img-fluid" id="current-profile-image">
@@ -43,24 +43,37 @@
                             <h2>Profil frissítése</h2>
                             <form id="profile-form">
                                 <div class="mb-3">
+                                    <label for="current-username" class="form-label">Jelenlegi felhasználónév</label>
+                                    <input type="text" class="form-control" id="current-username" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="password" class="form-label">Jelszó</label>
+                                    <input type="password" class="form-control" id="password" required>
+                                </div>
+                                <div class="mb-3">
                                     <label for="username" class="form-label">Új felhasználónév</label>
-                                    <input type="text" class="form-control" id="username" required>
+                                    <input type="text" class="form-control" id="username">
                                 </div>
                                 <div class="mb-3">
                                     <label for="personal-id" class="form-label">Személyi szám</label>
-                                    <input type="text" class="form-control" id="personal-id" required>
+                                    <input type="text" class="form-control" id="personal-id">
                                 </div>
                                 <div class="mb-3">
                                     <label for="license-number" class="form-label">Jogosítványszám</label>
-                                    <input type="text" class="form-control" id="license-number" required>
+                                    <input type="text" class="form-control" id="license-number">
                                 </div>
-                                <button type="submit" class="btn btn-primary w-100">Adatok frissítése</button>
+                                <div class="mb-3 profile-picture-frame">
+                                    <input type="file" id="profile-picture" accept="image/*" style="display: none;">
+                                    <button type="button" class="btn btn-secondary w-100 mt-3" onclick="document.getElementById('profile-picture').click()"id="ketto">Profilkép feltöltése</button>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100" id="egy">Adatok frissítése</button>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
-
+<br>
+<br>
             <div class="membership-section mt-5">
                 <h2 class="text-center mb-4">Tagság előnyök</h2>
                 <table class="table table-bordered">
@@ -81,7 +94,6 @@
                             <td class="checkmark">✔</td>
                             <td class="checkmark">✔</td>
                         </tr>
-
                         <tr>
                             <td>Kedvezményes kuponok</td>
                             <td class="checkmark">✔</td>
@@ -89,7 +101,6 @@
                             <td class="checkmark">✔</td>
                             <td class="checkmark">✔</td>
                         </tr>
-
                         <tr>
                             <td>Kiemelt támogatás</td>
                             <td></td>
@@ -97,7 +108,6 @@
                             <td class="checkmark">✔</td>
                             <td class="checkmark">✔</td>
                         </tr>
-
                         <tr>
                             <td>Nincs lemondási díj</td>
                             <td></td>
@@ -105,7 +115,6 @@
                             <td class="checkmark">✔</td>
                             <td class="checkmark">✔</td>
                         </tr>
-
                         <tr>
                             <td>Maximális kedvezmény</td>
                             <td></td>
@@ -115,21 +124,49 @@
                         </tr>
                     </tbody>
                 </table>
-
-                <div class="d-flex justify-content-center">
+                <div class="d-flex justify-content-center mt-4">
                     <button onclick="openModal('Bronz tag', '20')" class="btn btn-secondary me-2">Havi bronz tag vásárlása</button>
                     <button onclick="openModal('Ezüst tag', '30')" class="btn btn-secondary me-2">Havi ezüst tag vásárlása</button>
                     <button onclick="openModal('Arany tag', '40')" class="btn btn-secondary">Havi arany tag vásárlása</button>
                 </div>
-
             </div>
         </div>
-        
+
+        <div id="modal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <h3 id="package-name"></h3>
+                <p id="package-price"></p>
+                <div class="mb-3">
+                    <label for="card-number" class="form-label">Kártyaszám</label>
+                    <input type="text" class="form-control" id="card-number" required>
+                    <img id="card-icon" style="display: none; height: 20px; margin-left: 10px;">
+                </div>
+                <div class="mb-3">
+                    <label for="expiry-date" class="form-label">Lejárati dátum</label>
+                    <input type="date" class="form-control" id="expiry-date" required>
+                    <span id="date-error" style="display: none; color: red;">Érvénytelen dátum</span>
+                </div>
+                <div class="mb-3">
+                    <label><input type="checkbox" id="store-card"> Kártya adatainak mentése</label>
+                </div>
+                <button onclick="purchasePackage()" class="btn btn-primary">Vásárlás</button>
+                <button onclick="closeModal()" class="btn btn-secondary mt-2">Mégse</button>
+            </div>
+        </div>
+
+        <div id="transaction-modal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <p id="transaction-status"></p>
+                <p id="card-storage-status"></p>
+                <button onclick="closeTransactionModal()" class="btn btn-primary">OK</button>
+            </div>
+        </div>
     </main>
 
     <footer>
         <img src="../logo.jpg" alt="DriveUs Logo" id="footer-img">
         <p id="email">Vegye fel velünk a kapcsolatot: <a href="mailto:driveus.car.rent@gmail.com">driveus.car.rent@gmail.com</a></p>
+        <button id="login-logout-btn" class="btn btn-primary" id="=kibe">Bejelentkezés</button>
         <p id="footer_p">© 2025 DriveUs - Luxus autóbérlés</p>
     </footer>
 
