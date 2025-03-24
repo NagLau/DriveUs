@@ -6,6 +6,7 @@ document.getElementById('loginForm')?.addEventListener('submit', function (event
     const storedEmail = localStorage.getItem('email');
     const storedPassword = localStorage.getItem('password');
     if (loginEmail === storedEmail && loginPassword === storedPassword) {
+        localStorage.setItem('isLoggedIn', 'true');
         messageDiv.textContent = 'Sikeres bejelentkezés!';
         messageDiv.style.color = 'green';
         setTimeout(() => {

@@ -147,7 +147,9 @@ document.addEventListener('DOMContentLoaded', function () {
                     document.addEventListener('DOMContentLoaded', function() {
                         var startDateInput = document.getElementById('startDate');
                         if (startDateInput) {
-                            startDateInput.addEventListener('change', updateEndDateMin);
+                            startDateInput.addEventListener('change', function() {
+                                updateEndDateMin();
+                            });
                         }
                     });
 
