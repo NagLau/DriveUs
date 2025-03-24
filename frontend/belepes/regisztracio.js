@@ -5,12 +5,14 @@ document.getElementById('registrationForm')?.addEventListener('submit', function
     const confirmPassword = document.getElementById('confirmPassword').value;
     const personalId = document.getElementById('personalId').value;
     const licenseNumber = document.getElementById('licenseNumber').value;
+    const username = email.split('@')[0];
     const messageDiv = document.getElementById('message');
     if (password !== confirmPassword) {
         messageDiv.textContent = 'A jelszavak nem egyeznek!';
         messageDiv.style.color = 'red';
     } else {
         localStorage.setItem('email', email);
+        localStorage.setItem('username', username);
         localStorage.setItem('password', password);
         localStorage.setItem('personalId', personalId);
         localStorage.setItem('licenseNumber', licenseNumber);
@@ -21,7 +23,6 @@ document.getElementById('registrationForm')?.addEventListener('submit', function
 document.addEventListener("DOMContentLoaded", function () {
     const switchButton = document.querySelector(".language-switcher");
     const pageTitle = document.getElementById("page-title");
-    const usernameLabel = document.getElementById("username-label");
     const passwordLabel = document.getElementById("password-label");
     const confirmPasswordLabel = document.getElementById("confirm-password-label");
     const registerButton = document.getElementById("register-button");
@@ -30,7 +31,6 @@ document.addEventListener("DOMContentLoaded", function () {
     function switchLanguageR() {
         if (isHungarian) {
             pageTitle.textContent = "Registration";
-            usernameLabel.textContent = "Username:";
             passwordLabel.textContent = "Password:";
             confirmPasswordLabel.textContent = "Confirm Password:";
             registerButton.textContent = "Register";
@@ -38,7 +38,6 @@ document.addEventListener("DOMContentLoaded", function () {
             switchButton.textContent = "Váltás Magyarra";
         } else {
             pageTitle.textContent = "Regisztráció";
-            usernameLabel.textContent = "Felhasználónév:";
             passwordLabel.textContent = "Jelszó:";
             confirmPasswordLabel.textContent = "Jelszó megerősítése:";
             registerButton.textContent = "Regisztráció";

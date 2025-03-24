@@ -12,8 +12,6 @@
         <h1 id="page-title">Regisztráció</h1>
         <div id="google_translate_element"></div>
         <form id="registrationForm">
-            <label for="username" id="username-label">Felhasználónév:</label>
-            <input type="text" id="username" name="username" placeholder="Felhasználónév" required>
             <label for="contactInput">Email:</label>
             <input type="email" id="contactInput" name="contactInput" placeholder="E-mail" required>
             <label for="personalId">Személyi szám:</label>
@@ -24,10 +22,10 @@
             <input type="password" id="password" name="password" placeholder="Jelszó" required>
             <label for="confirmPassword" id="confirm-password-label">Jelszó megerősítése:</label>
             <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Jelszó megerősítése" required>
+            <button type="submit" id="register-button">Regisztráció</button>
         </form>
         <div id="message"></div>
         <button id="login-button" onclick="window.location.href='bejelentkezes.html'" class="btn btn-link">Bejelentkezés</button>
-        <button class="language-switcher">Switch to English</button>
     </div>
     <script type="text/javascript">
         function googleTranslateElementInit() {
