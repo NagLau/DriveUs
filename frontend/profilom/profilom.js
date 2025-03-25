@@ -1,16 +1,24 @@
 document.addEventListener("DOMContentLoaded", function () {
-    let storedUsername = localStorage.getItem("username") || "Nincs adat";
-    let storedPersonalId = localStorage.getItem("personalId") || "Nincs adat";
-    let storedLicenseNumber = localStorage.getItem("licenseNumber") || "Nincs adat";
-    let storedProfileImage = localStorage.getItem("profileImage") || "";
+    let isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+    let loginLogoutBtn = document.getElementById("login-logout-btn");
+    let registerBtn = document.getElementById("register-btn");
+    loginLogoutBtn.textContent = isLoggedIn ? "Kijelentkezés" : "Bejelentkezés";
 
-    document.getElementById("current-username-display").textContent = storedUsername;
-    document.getElementById("current-personal-id-display").textContent = storedPersonalId;
-    document.getElementById("current-license-number-display").textContent = storedLicenseNumber;
-
-    if (storedProfileImage) {
-        document.getElementById("current-profile-image").src = storedProfileImage;
-        document.getElementById("current-profile-image").style.display = "block";
+    if (!isLoggedIn) {
+        document.getElementById("current-username-display").textContent = "Nincs adat";
+        document.getElementById("current-personal-id-display").textContent = "Nincs adat";
+        document.getElementById("current-license-number-display").textContent = "Nincs adat";
+        document.getElementById("current-profile-image").src = "";
+        document.getElementById("current-profile-image").style.display = "none";
+    } else {
+        document.getElementById("current-username-display").textContent = localStorage.getItem("username") || "Nincs adat";
+        document.getElementById("current-personal-id-display").textContent = localStorage.getItem("personalId") || "Nincs adat";
+        document.getElementById("current-license-number-display").textContent = localStorage.getItem("licenseNumber") || "Nincs adat";
+        let storedProfileImage = localStorage.getItem("profileImage");
+        if (storedProfileImage) {
+            document.getElementById("current-profile-image").src = storedProfileImage;
+            document.getElementById("current-profile-image").style.display = "block";
+        }
     }
 
     let userPackage = localStorage.getItem("userPackage") || "Új tag";
@@ -26,7 +34,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const cardNumberInput = document.getElementById("card-number");
     const cardIcon = document.getElementById("card-icon");
-
     const cardTypes = {
         "Visa": { regex: /^4/, icon: "./visa_PNG4.png" },
         "MasterCard": { regex: /^5[1-5]/, icon: "./mastercard.png" },
@@ -41,14 +48,12 @@ document.addEventListener("DOMContentLoaded", function () {
     cardNumberInput.addEventListener("input", function () {
         const cardNumber = cardNumberInput.value.replace(/\D/g, "");
         let detectedCard = null;
-
         for (const [card, data] of Object.entries(cardTypes)) {
             if (data.regex.test(cardNumber)) {
                 detectedCard = data.icon;
                 break;
             }
         }
-
         if (detectedCard) {
             cardIcon.src = `ikonok/${detectedCard.split('/').pop()}`;
             cardIcon.style.display = "inline-block";
@@ -62,15 +67,12 @@ document.addEventListener("DOMContentLoaded", function () {
     const month = String(today.getMonth() + 1).padStart(2, '0');
     const year = today.getFullYear();
     const formattedDate = `${year}-${month}-${day}`;
-
     const expiryDateInput = document.getElementById("expiry-date");
     const dateError = document.getElementById("date-error");
-
     expiryDateInput.setAttribute("min", formattedDate);
 
     expiryDateInput.addEventListener("change", function () {
         const selectedDate = new Date(expiryDateInput.value);
-
         if (selectedDate < today) {
             dateError.style.display = "inline";
             expiryDateInput.setCustomValidity("A dátumnak nem lehet régebbinek lennie a mai napnál.");
@@ -80,22 +82,82 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    const loginLogoutBtn = document.getElementById("login-logout-btn");
-    let isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-
-    loginLogoutBtn.textContent = isLoggedIn ? "Kijelentkezés" : "Bejelentkezés";
-
     loginLogoutBtn.addEventListener("click", function () {
         if (isLoggedIn) {
             localStorage.setItem("isLoggedIn", "false");
             loginLogoutBtn.textContent = "Bejelentkezés";
+            document.getElementById("current-username-display").textContent = "Nincs adat";
+            document.getElementById("current-personal-id-display").textContent = "Nincs adat";
+            document.getElementById("current-license-number-display").textContent = "Nincs adat";
+            document.getElementById("current-profile-image").src = "";
+            document.getElementById("current-profile-image").style.display = "none";
             alert("Sikeresen kijelentkeztél!");
+            isLoggedIn = false;
         } else {
+            document.getElementById("login-modal").style.display = "flex";
+        }
+    });
+
+    registerBtn.addEventListener("click", function () {
+        if (!isLoggedIn) {
+            document.getElementById("register-modal").style.display = "flex";
+        }
+    });
+
+    document.getElementById("login-form").addEventListener("submit", function (event) {
+        event.preventDefault();
+        const email = document.getElementById("login-email").value;
+        const password = document.getElementById("login-password").value;
+        const storedEmail = localStorage.getItem("email");
+        const storedPassword = localStorage.getItem("password");
+
+        if (email === storedEmail && password === storedPassword) {
             localStorage.setItem("isLoggedIn", "true");
             loginLogoutBtn.textContent = "Kijelentkezés";
+            document.getElementById("current-username-display").textContent = localStorage.getItem("username");
+            document.getElementById("current-personal-id-display").textContent = localStorage.getItem("personalId");
+            document.getElementById("current-license-number-display").textContent = localStorage.getItem("licenseNumber");
+            let storedProfileImage = localStorage.getItem("profileImage");
+            if (storedProfileImage) {
+                document.getElementById("current-profile-image").src = storedProfileImage;
+                document.getElementById("current-profile-image").style.display = "block";
+            }
+            closeLoginModal();
             alert("Sikeresen bejelentkeztél!");
+            isLoggedIn = true;
+        } else {
+            alert("Hibás email vagy jelszó!");
         }
-        isLoggedIn = !isLoggedIn;
+    });
+
+    document.getElementById("register-form").addEventListener("submit", function (event) {
+        event.preventDefault();
+        const email = document.getElementById("register-email").value;
+        const personalId = document.getElementById("register-personal-id").value;
+        const licenseNumber = document.getElementById("register-license-number").value;
+        const password = document.getElementById("register-password").value;
+        const confirmPassword = document.getElementById("register-confirm-password").value;
+        const username = email.split('@')[0];
+
+        if (password !== confirmPassword) {
+            alert("A jelszavak nem egyeznek!");
+            return;
+        }
+
+        localStorage.setItem("email", email);
+        localStorage.setItem("username", username);
+        localStorage.setItem("personalId", personalId);
+        localStorage.setItem("licenseNumber", licenseNumber);
+        localStorage.setItem("password", password);
+        localStorage.setItem("isLoggedIn", "true");
+
+        document.getElementById("current-username-display").textContent = username;
+        document.getElementById("current-personal-id-display").textContent = personalId;
+        document.getElementById("current-license-number-display").textContent = licenseNumber;
+        loginLogoutBtn.textContent = "Kijelentkezés";
+        closeRegisterModal();
+        alert("Sikeres regisztráció és bejelentkezés!");
+        isLoggedIn = true;
     });
 });
 
@@ -118,12 +180,10 @@ function purchasePackage() {
     let cardStorageStatus = storeCard ? "A kártya adatait eltároltuk!" : "A kártya adatait nem tároltuk el";
 
     closeModal();
-
     setTimeout(() => {
         document.getElementById("transaction-status").innerText = transactionStatus;
         document.getElementById("card-storage-status").innerText = cardStorageStatus;
         document.getElementById("transaction-modal").style.display = "flex";
-
         if (userBalance >= packagePrice) {
             localStorage.setItem("userPackage", packageName);
             let headers = document.querySelectorAll("th");
@@ -147,6 +207,14 @@ function closeTransactionModal() {
     document.getElementById("transaction-modal").style.display = "none";
 }
 
+function closeLoginModal() {
+    document.getElementById("login-modal").style.display = "none";
+}
+
+function closeRegisterModal() {
+    document.getElementById("register-modal").style.display = "none";
+}
+
 document.getElementById("profile-picture").addEventListener("change", function(event) {
     const file = event.target.files[0];
     if (file) {
@@ -162,7 +230,6 @@ document.getElementById("profile-picture").addEventListener("change", function(e
 
 document.getElementById("profile-form").addEventListener("submit", function(event) {
     event.preventDefault();
-
     let currentUsername = document.getElementById('current-username').value;
     let password = document.getElementById('password').value;
 

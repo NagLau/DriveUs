@@ -49,3 +49,23 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     switchButton.addEventListener("click", switchLanguage);
 });
+
+document.getElementById('loginForm')?.addEventListener('submit', function (event) {
+    event.preventDefault();
+    const loginEmail = document.getElementById('loginUsername').value;
+    const loginPassword = document.getElementById('loginPassword').value;
+    const messageDiv = document.getElementById('message');
+    const storedEmail = localStorage.getItem('email');
+    const storedPassword = localStorage.getItem('password');
+    if (loginEmail === storedEmail && loginPassword === storedPassword) {
+        localStorage.setItem('isLoggedIn', 'true');
+        messageDiv.textContent = 'Sikeres bejelentkezés!';
+        messageDiv.style.color = 'green';
+        setTimeout(() => {
+            window.location.href = '../profilom/profilom.html';
+        }, 500);
+    } else {
+        messageDiv.textContent = 'Hibás email vagy jelszó!';
+        messageDiv.style.color = 'red';
+    }
+});

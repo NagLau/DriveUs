@@ -236,10 +236,16 @@ footer p {
   margin: 0;
 }
 
-#login-logout-btn {
+.button-container {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
+}
+
+#login-logout-btn, #register-btn {
   padding: 5px 15px;
   font-size: 14px;
 }
@@ -268,7 +274,7 @@ footer p {
     padding-left: 60px;
   }
 
-  #login-logout-btn {
+  #login-logout-btn, #register-btn {
     padding: 3px 10px;
     font-size: 12px;
   }

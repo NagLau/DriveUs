@@ -48,3 +48,26 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     switchButton.addEventListener("click", switchLanguageR);
 });
+
+document.getElementById('registrationForm')?.addEventListener('submit', function (event) {
+    event.preventDefault();
+    const email = document.getElementById('contactInput').value;
+    const password = document.getElementById('password').value;
+    const confirmPassword = document.getElementById('confirmPassword').value;
+    const personalId = document.getElementById('personalId').value;
+    const licenseNumber = document.getElementById('licenseNumber').value;
+    const username = email.split('@')[0];
+    const messageDiv = document.getElementById('message');
+    if (password !== confirmPassword) {
+        messageDiv.textContent = 'A jelszavak nem egyeznek!';
+        messageDiv.style.color = 'red';
+    } else {
+        localStorage.setItem('email', email);
+        localStorage.setItem('username', username);
+        localStorage.setItem('password', password);
+        localStorage.setItem('personalId', personalId);
+        localStorage.setItem('licenseNumber', licenseNumber);
+        localStorage.setItem('isLoggedIn', 'true');
+        window.location.href = '../profilom/profilom.html';
+    }
+});
