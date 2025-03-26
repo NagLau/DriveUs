@@ -2,23 +2,58 @@ document.addEventListener("DOMContentLoaded", function () {
     let isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
     let loginLogoutBtn = document.getElementById("login-logout-btn");
     let registerBtn = document.getElementById("register-btn");
+    let currentUsernameInput = document.getElementById("current-username");
+    let passwordInput = document.getElementById("password");
+    let usernameInput = document.getElementById("username");
+    let personalIdInput = document.getElementById("personal-id");
+    let licenseNumberInput = document.getElementById("license-number");
+    let profilePictureInput = document.getElementById("profile-picture");
+    let updateProfileBtn = document.getElementById("egy");
+    let uploadProfilePictureBtn = document.getElementById("ketto");
+
     loginLogoutBtn.textContent = isLoggedIn ? "Kijelentkezés" : "Bejelentkezés";
 
     if (!isLoggedIn) {
-        document.getElementById("current-username-display").textContent = "Nincs adat";
-        document.getElementById("current-personal-id-display").textContent = "Nincs adat";
-        document.getElementById("current-license-number-display").textContent = "Nincs adat";
+        document.getElementById("current-username-display").textContent = "";
+        document.getElementById("current-personal-id-display").textContent = "";
+        document.getElementById("current-license-number-display").textContent = "";
         document.getElementById("current-profile-image").src = "";
         document.getElementById("current-profile-image").style.display = "none";
+        currentUsernameInput.value = "";
+        passwordInput.value = "";
+        usernameInput.value = "";
+        personalIdInput.value = "";
+        licenseNumberInput.value = "";
+        currentUsernameInput.disabled = true;
+        passwordInput.disabled = true;
+        usernameInput.disabled = true;
+        personalIdInput.disabled = true;
+        licenseNumberInput.disabled = true;
+        profilePictureInput.disabled = true;
+        updateProfileBtn.disabled = false;
+        uploadProfilePictureBtn.disabled = false;
     } else {
-        document.getElementById("current-username-display").textContent = localStorage.getItem("username") || "Nincs adat";
-        document.getElementById("current-personal-id-display").textContent = localStorage.getItem("personalId") || "Nincs adat";
-        document.getElementById("current-license-number-display").textContent = localStorage.getItem("licenseNumber") || "Nincs adat";
+        document.getElementById("current-username-display").textContent = localStorage.getItem("username") || "";
+        document.getElementById("current-personal-id-display").textContent = localStorage.getItem("personalId") || "";
+        document.getElementById("current-license-number-display").textContent = localStorage.getItem("licenseNumber") || "";
         let storedProfileImage = localStorage.getItem("profileImage");
         if (storedProfileImage) {
             document.getElementById("current-profile-image").src = storedProfileImage;
             document.getElementById("current-profile-image").style.display = "block";
         }
+        currentUsernameInput.value = localStorage.getItem("username") || "";
+        passwordInput.value = "";
+        usernameInput.value = "";
+        personalIdInput.value = "";
+        licenseNumberInput.value = "";
+        currentUsernameInput.disabled = false;
+        passwordInput.disabled = false;
+        usernameInput.disabled = false;
+        personalIdInput.disabled = false;
+        licenseNumberInput.disabled = false;
+        profilePictureInput.disabled = false;
+        updateProfileBtn.disabled = false;
+        uploadProfilePictureBtn.disabled = false;
     }
 
     let userPackage = localStorage.getItem("userPackage") || "Új tag";
@@ -86,11 +121,24 @@ document.addEventListener("DOMContentLoaded", function () {
         if (isLoggedIn) {
             localStorage.setItem("isLoggedIn", "false");
             loginLogoutBtn.textContent = "Bejelentkezés";
-            document.getElementById("current-username-display").textContent = "Nincs adat";
-            document.getElementById("current-personal-id-display").textContent = "Nincs adat";
-            document.getElementById("current-license-number-display").textContent = "Nincs adat";
+            document.getElementById("current-username-display").textContent = "";
+            document.getElementById("current-personal-id-display").textContent = "";
+            document.getElementById("current-license-number-display").textContent = "";
             document.getElementById("current-profile-image").src = "";
             document.getElementById("current-profile-image").style.display = "none";
+            currentUsernameInput.value = "";
+            passwordInput.value = "";
+            usernameInput.value = "";
+            personalIdInput.value = "";
+            licenseNumberInput.value = "";
+            currentUsernameInput.disabled = true;
+            passwordInput.disabled = true;
+            usernameInput.disabled = true;
+            personalIdInput.disabled = true;
+            licenseNumberInput.disabled = true;
+            profilePictureInput.disabled = true;
+            updateProfileBtn.disabled = false;
+            uploadProfilePictureBtn.disabled = false;
             alert("Sikeresen kijelentkeztél!");
             isLoggedIn = false;
         } else {
@@ -122,6 +170,19 @@ document.addEventListener("DOMContentLoaded", function () {
                 document.getElementById("current-profile-image").src = storedProfileImage;
                 document.getElementById("current-profile-image").style.display = "block";
             }
+            currentUsernameInput.value = localStorage.getItem("username") || "";
+            passwordInput.value = "";
+            usernameInput.value = "";
+            personalIdInput.value = "";
+            licenseNumberInput.value = "";
+            currentUsernameInput.disabled = false;
+            passwordInput.disabled = false;
+            usernameInput.disabled = false;
+            personalIdInput.disabled = false;
+            licenseNumberInput.disabled = false;
+            profilePictureInput.disabled = false;
+            updateProfileBtn.disabled = false;
+            uploadProfilePictureBtn.disabled = false;
             closeLoginModal();
             alert("Sikeresen bejelentkeztél!");
             isLoggedIn = true;
@@ -154,17 +215,59 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("current-username-display").textContent = username;
         document.getElementById("current-personal-id-display").textContent = personalId;
         document.getElementById("current-license-number-display").textContent = licenseNumber;
-        loginLogoutBtn.textContent = "Kijelentkezés";
+        currentUsernameInput.value = username;
+        passwordInput.value = "";
+        usernameInput.value = "";
+        personalIdInput.value = "";
+        licenseNumberInput.value = "";
+        currentUsernameInput.disabled = false;
+        passwordInput.disabled = false;
+        usernameInput.disabled = false;
+        personalIdInput.disabled = false;
+        licenseNumberInput.disabled = false;
+        profilePictureInput.disabled = false;
+        updateProfileBtn.disabled = false;
+        uploadProfilePictureBtn.disabled = false;
         closeRegisterModal();
         alert("Sikeres regisztráció és bejelentkezés!");
         isLoggedIn = true;
     });
+
+    document.getElementById("ketto").addEventListener("click", function(event) {
+        let isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+        if (!isLoggedIn) {
+            alert("Jelentkezz be vagy regisztrálj az adatok frissítéséhez!");
+            return;
+        }
+        document.getElementById("profile-picture").click();
+    });
 });
 
 function openModal(packageName, price) {
+    let isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
     document.getElementById("modal").style.display = "flex";
     document.getElementById("package-name").innerText = packageName;
     document.getElementById("package-price").innerText = "Ár: " + price + " EUR";
+
+    const cardNumberInput = document.getElementById("card-number");
+    const expiryDateInput = document.getElementById("expiry-date");
+    const cvvInput = document.getElementById("cvv");
+    const storeCardCheckbox = document.getElementById("store-card");
+    const purchaseButton = document.querySelector("#modal .modal-content button[onclick='purchasePackage()']");
+
+    if (!isLoggedIn) {
+        cardNumberInput.disabled = true;
+        expiryDateInput.disabled = true;
+        cvvInput.disabled = true;
+        storeCardCheckbox.disabled = true;
+        purchaseButton.disabled = true;
+    } else {
+        cardNumberInput.disabled = false;
+        expiryDateInput.disabled = false;
+        cvvInput.disabled = false;
+        storeCardCheckbox.disabled = false;
+        purchaseButton.disabled = false;
+    }
 }
 
 function closeModal() {
@@ -172,6 +275,12 @@ function closeModal() {
 }
 
 function purchasePackage() {
+    let isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+    if (!isLoggedIn) {
+        alert("Jelentkezz be vagy regisztrálj a tagság vásárlásához!");
+        return;
+    }
+
     let packageName = document.getElementById("package-name").innerText;
     let storeCard = document.getElementById("store-card").checked;
     let userBalance = 50;
@@ -230,17 +339,28 @@ document.getElementById("profile-picture").addEventListener("change", function(e
 
 document.getElementById("profile-form").addEventListener("submit", function(event) {
     event.preventDefault();
+    let isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+    if (!isLoggedIn) {
+        alert("Jelentkezz be vagy regisztrálj az adatok frissítéséhez!");
+        return;
+    }
     let currentUsername = document.getElementById('current-username').value;
     let password = document.getElementById('password').value;
+    let storedPassword = localStorage.getItem("password") || "";
 
     if (!currentUsername || !password) {
         alert('A módosításhoz adja meg a jelenlegi felhasználónevét és jelszavát!');
         return;
     }
 
-    let storedUsername = localStorage.getItem("username") || "Nincs adat";
-    let storedPersonalId = localStorage.getItem("personalId") || "Nincs adat";
-    let storedLicenseNumber = localStorage.getItem("licenseNumber") || "Nincs adat";
+    if (password !== storedPassword) {
+        alert('Hibás jelszó, az adatok módosítása nem lehetséges!');
+        return;
+    }
+
+    let storedUsername = localStorage.getItem("username") || "";
+    let storedPersonalId = localStorage.getItem("personalId") || "";
+    let storedLicenseNumber = localStorage.getItem("licenseNumber") || "";
 
     let newUsername = document.getElementById("username").value;
     let newPersonalId = document.getElementById("personal-id").value;
@@ -253,6 +373,7 @@ document.getElementById("profile-form").addEventListener("submit", function(even
     document.getElementById("current-username-display").textContent = newUsername || storedUsername;
     document.getElementById("current-personal-id-display").textContent = newPersonalId || storedPersonalId;
     document.getElementById("current-license-number-display").textContent = newLicenseNumber || storedLicenseNumber;
+    document.getElementById("current-username").value = newUsername || storedUsername;
 
     alert('Adatok sikeresen frissítve!');
 });

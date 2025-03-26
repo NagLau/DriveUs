@@ -296,13 +296,13 @@ footer p {
 
 .profile-img-container img {
   border: 2px solid #ffd700;
-  max-width: 300px;
+  max-width: 350px;
   height: auto;
   margin-top: 20px;
 }
 
 .profile-picture-frame {
-  width: 300px;
+  width: 100%;
   height: auto;
   margin: 0;
 }

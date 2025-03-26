@@ -20,8 +20,11 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     window.openCarDetails = function(carName, imgSrc, details) {
-        const currentDate = new Date('2025-03-19');
-        const formattedCurrentDate = currentDate.toISOString().split('T')[0];
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0');
+        const day = String(today.getDate()).padStart(2, '0');
+        const formattedCurrentDate = `${year}-${month}-${day}`;
         const detailsPage = `
             <!DOCTYPE html>
             <html lang="hu">
@@ -314,9 +317,38 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                     function showReservationForm(carName) {
                         var form = document.getElementById('reservationForm');
+                        var isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
                         if (form) {
                             form.classList.add('open');
                             updateEndDateMin();
+                            var emailInput = document.getElementById('email');
+                            var nameInput = document.getElementById('name');
+                            var startDateInput = document.getElementById('startDate');
+                            var endDateInput = document.getElementById('endDate');
+                            var submitButton = form.querySelector("button[onclick*='submitReservation']");
+                            if (isLoggedIn) {
+                                var storedEmail = localStorage.getItem('email');
+                                if (storedEmail) {
+                                    emailInput.value = storedEmail;
+                                } else {
+                                    emailInput.value = '';
+                                }
+                                nameInput.disabled = false;
+                                emailInput.disabled = false;
+                                startDateInput.disabled = false;
+                                endDateInput.disabled = false;
+                                submitButton.disabled = false;
+                            } else {
+                                nameInput.value = '';
+                                emailInput.value = '';
+                                startDateInput.value = startDateInput.min;
+                                endDateInput.value = endDateInput.min;
+                                nameInput.disabled = true;
+                                emailInput.disabled = true;
+                                startDateInput.disabled = true;
+                                endDateInput.disabled = true;
+                                submitButton.disabled = false;
+                            }
                         }
                     }
                     function closeReservationForm() {
@@ -335,21 +367,39 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                     document.addEventListener('DOMContentLoaded', function() {
                         var startDateInput = document.getElementById('startDate');
-                        if (startDateInput) {
+                        var endDateInput = document.getElementById('endDate');
+                        if (startDateInput && endDateInput) {
                             startDateInput.addEventListener('change', updateEndDateMin);
+                            endDateInput.addEventListener('change', function() {
+                                if (new Date(endDateInput.value) < new Date(startDateInput.value)) {
+                                    endDateInput.value = startDateInput.value;
+                                    alert('A foglalás vége nem lehet korábbi, mint a foglalás kezdete!');
+                                }
+                            });
                         }
                     });
                     function submitReservation(carName) {
+                        var isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+                        if (!isLoggedIn) {
+                            alert('Jelentkezz be vagy regisztrálj a foglaláshoz!');
+                            return;
+                        }
                         var name = document.getElementById('name').value;
                         var email = document.getElementById('email').value;
                         var startDate = document.getElementById('startDate').value;
                         var endDate = document.getElementById('endDate').value;
-                        var currentDate = new Date('2025-03-19');
+                        var today = new Date();
+                        var year = today.getFullYear();
+                        var month = String(today.getMonth() + 1).padStart(2, '0');
+                        var day = String(today.getDate()).padStart(2, '0');
+                        var formattedCurrentDate = \`\${year}-\${month}-\${day}\`;
                         var selectedStartDate = new Date(startDate);
                         var selectedEndDate = new Date(endDate);
+                        var currentDate = new Date(formattedCurrentDate);
+                        var storedEmail = localStorage.getItem('email') || email;
                         if (name && email && startDate && endDate) {
                             if (selectedStartDate < currentDate) {
-                                alert('A foglalás kezdete nem lehet korábbi, mint a mai nap (2025.03.19.)!');
+                                alert('A foglalás kezdete nem lehet korábbi, mint a mai nap (' + formattedCurrentDate + ')!');
                                 return;
                             }
                             if (selectedEndDate < selectedStartDate) {
@@ -365,13 +415,13 @@ document.addEventListener('DOMContentLoaded', function () {
                                        "Foglalás időtartama: " + duration + "\\n\\n" +
                                        "Kérem, vegyék fel velem a kapcsolatot a részletek egyeztetéséhez!\\n\\n" +
                                        "Üdvözlettel,\\n" + name;
-                            var mailtoLink = "mailto:driveus.car.rent@gmail.com?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body) + "&from=" + encodeURIComponent(email);
+                            var mailtoLink = "mailto:driveus.car.rent@gmail.com?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body) + "&from=" + encodeURIComponent(storedEmail);
                             window.location.href = mailtoLink;
                             document.getElementById('reservationForm').classList.remove('open');
                             document.getElementById('name').value = '';
                             document.getElementById('email').value = '';
-                            document.getElementById('startDate').value = '${formattedCurrentDate}';
-                            document.getElementById('endDate').value = '${formattedCurrentDate}';
+                            document.getElementById('startDate').value = formattedCurrentDate;
+                            document.getElementById('endDate').value = formattedCurrentDate;
                         } else {
                             alert('Kérjük, töltse ki az összes mezőt!');
                         }
