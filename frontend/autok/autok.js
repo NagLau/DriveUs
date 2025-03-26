@@ -1,4 +1,13 @@
 document.addEventListener('DOMContentLoaded', function () {
+    const cars = [
+        { element: document.querySelectorAll('.car-card')[0], type: 'sport', color: 'fekete' },
+        { element: document.querySelectorAll('.car-card')[1], type: 'luxus', color: 'szurke' },
+        { element: document.querySelectorAll('.car-card')[2], type: 'sport', color: 'piros pid' },
+        { element: document.querySelectorAll('.car-card')[3], type: 'luxus', color: 'fekete' },
+        { element: document.querySelectorAll('.car-card')[4], type: 'luxus', color: 'szurke' },
+        { element: document.querySelector('.featured-card'), type: 'sport', color: 'zold' }
+    ];
+
     function openModal(imgElement) {
         var modal = document.createElement('div');
         modal.classList.add('modal', 'open');
@@ -16,7 +25,13 @@ document.addEventListener('DOMContentLoaded', function () {
         e.preventDefault();
         const carType = document.getElementById('tipus').value;
         const color = document.getElementById('szin').value;
-        alert(`Szűrt autók: ${carType} - ${color}`);
+        cars.forEach(car => {
+            if ((carType === 'all' || car.type === carType) && (color === 'all' || car.color === color)) {
+                car.element.style.display = 'block';
+            } else {
+                car.element.style.display = 'none';
+            }
+        });
     });
 
     window.openCarDetails = function(carName, imgSrc, details) {
@@ -289,7 +304,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     <label for="endDate">Foglalás vége</label>
                     <input type="date" id="endDate" min="${formattedCurrentDate}" value="${formattedCurrentDate}" required>
                     <div class="button-container">
-                        <button onclick="submitReservation('${carName}')">Foglalás küldése</button>
+                        <button onclick="submitReservation('${carName}', '${details.join(';')}')">Foglalás küldése</button>
                         <button onclick="closeReservationForm()">Vissza</button>
                     </div>
                 </div>
@@ -378,7 +393,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             });
                         }
                     });
-                    function submitReservation(carName) {
+                    function submitReservation(carName, details) {
                         var isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
                         if (!isLoggedIn) {
                             alert('Jelentkezz be vagy regisztrálj a foglaláshoz!');
@@ -396,7 +411,6 @@ document.addEventListener('DOMContentLoaded', function () {
                         var selectedStartDate = new Date(startDate);
                         var selectedEndDate = new Date(endDate);
                         var currentDate = new Date(formattedCurrentDate);
-                        var storedEmail = localStorage.getItem('email') || email;
                         if (name && email && startDate && endDate) {
                             if (selectedStartDate < currentDate) {
                                 alert('A foglalás kezdete nem lehet korábbi, mint a mai nap (' + formattedCurrentDate + ')!');
@@ -415,8 +429,23 @@ document.addEventListener('DOMContentLoaded', function () {
                                        "Foglalás időtartama: " + duration + "\\n\\n" +
                                        "Kérem, vegyék fel velem a kapcsolatot a részletek egyeztetéséhez!\\n\\n" +
                                        "Üdvözlettel,\\n" + name;
-                            var mailtoLink = "mailto:driveus.car.rent@gmail.com?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body) + "&from=" + encodeURIComponent(storedEmail);
+                            var mailtoLink = "mailto:driveus.car.rent@gmail.com?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body) + "&from=" + encodeURIComponent(email);
                             window.location.href = mailtoLink;
+
+                            var username = localStorage.getItem('username') || 'default';
+                            var rentalsKey = 'rentals_' + username;
+                            var rentals = JSON.parse(localStorage.getItem(rentalsKey)) || [];
+                            rentals.push({
+                                carName: carName,
+                                startDate: startDate,
+                                endDate: endDate,
+                                price: getCarPrice(carName),
+                                status: 'pending',
+                                paymentStatus: 'Folyamatban',
+                                details: details.replace(/;/g, '. ')
+                            });
+                            localStorage.setItem(rentalsKey, JSON.stringify(rentals));
+
                             document.getElementById('reservationForm').classList.remove('open');
                             document.getElementById('name').value = '';
                             document.getElementById('email').value = '';
@@ -425,6 +454,17 @@ document.addEventListener('DOMContentLoaded', function () {
                         } else {
                             alert('Kérjük, töltse ki az összes mezőt!');
                         }
+                    }
+                    function getCarPrice(carName) {
+                        const prices = {
+                            'Lamborghini Huracán': '150.000 Ft',
+                            'Toyota Camry': '70.000 Ft',
+                            'Aston Martin D9': '120.000 Ft',
+                            'Toyota Supra': '90.000 Ft',
+                            'Mercedes-Benz G63 AMG': '130.000 Ft',
+                            'Tesla Model S Plaid': '140.000 Ft'
+                        };
+                        return prices[carName] || '100.000 Ft';
                     }
                 </script>
             </body>

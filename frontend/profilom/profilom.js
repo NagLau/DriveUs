@@ -161,6 +161,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (email === storedEmail && password === storedPassword) {
             localStorage.setItem("isLoggedIn", "true");
+            localStorage.setItem("email", email);
             loginLogoutBtn.textContent = "Kijelentkezés";
             document.getElementById("current-username-display").textContent = localStorage.getItem("username");
             document.getElementById("current-personal-id-display").textContent = localStorage.getItem("personalId");

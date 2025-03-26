@@ -2,6 +2,9 @@ body {
     background-color: #1a1a1a;
     color: #f0f0f0;
     font-family: 'Helvetica Neue', Arial, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 header {
@@ -50,6 +53,7 @@ header nav a:hover {
 main {
     flex: 1;
     padding: 20px;
+    min-height: calc(100vh - 120px);
 }
 
 .intro {
@@ -67,10 +71,46 @@ main {
     color: #dcdcdc;
 }
 
-.berles-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+.berles-tabs {
+    margin-bottom: 40px;
+}
+
+.tab-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.tab-btn {
+    background-color: #333;
+    color: #f0f0f0;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+}
+
+.tab-btn:hover {
+    background-color: #b8860b;
+}
+
+.tab-btn.active {
+    background-color: #ffd700;
+    color: #1a1a1a;
+}
+
+.tab-content {
+    display: none;
+    flex-direction: row;
+    justify-content: center;
     gap: 20px;
+    overflow-x: auto;
+    overflow-y: auto;
+    padding: 10px;
+    height: 300px;
 }
 
 .berles-card {
@@ -81,6 +121,9 @@ main {
     text-align: center;
     color: white;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 100%;
+    max-width: 350px;
+    flex-shrink: 0;
 }
 
 .berles-card:hover {
@@ -99,14 +142,55 @@ main {
 }
 
 .berles-card a {
-    color: rgb(207, 188, 79);
+    color: #b8860b;
     font-weight: bold;
     text-decoration: none;
     transition: all 0.3s ease;
+    cursor: pointer;
 }
 
 .berles-card a:hover {
     text-decoration: underline;
+    color: #ffd700;
+}
+
+.berles-card.active {
+    border: 2px solid #ffd700;
+}
+
+.berles-card.future {
+    border: 2px solid #b8860b;
+}
+
+.berles-card.completed {
+    opacity: 0.8;
+}
+
+.summary {
+    text-align: center;
+    background-color: #333;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    margin-top: 100px;
+}
+
+.summary h2 {
+    font-size: 1.8em;
+    color: #ffd700;
+    margin-bottom: 20px;
+}
+
+.summary-content {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.summary-content p {
+    font-size: 1.1em;
 }
 
 footer {
@@ -178,31 +262,7 @@ footer p {
     display: block;
 }
 
-.more-details {
-    display: none;
-    margin-top: 10px;
-    background-color: #f0f0f0;
-    padding: 10px;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.more-details.show {
-    display: block;
-}
-
-.berles-card a {
-    cursor: pointer;
-    color: #b8860b;
-    font-weight: bold;
-    text-decoration: none;
-}
-
-.berles-card a:hover {
-    color: #ffd700;
-}
-
-#footer_p{
+#footer_p {
     position: absolute;
     right: 20px;
 }

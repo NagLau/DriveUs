@@ -5,31 +5,28 @@ body {
     margin: 0;
     padding: 0;
 }
-
 header {
     background-color: rgb(207, 188, 79);
     background: linear-gradient(90deg, rgb(207, 188, 79), #b8860b);
     color: white;
     font-size: 18px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-    position: relative; 
-    display: flex; 
-    align-items: center; 
-    justify-content: flex-end; 
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
     padding: 10px 20px;
-    height: 60px; 
+    height: 60px;
 }
-
 header nav {
     display: flex;
-    gap: 15px; 
-    margin-right: 25px; 
-    margin-left: 20px;   
+    gap: 15px;
+    margin-right: 25px;
+    margin-left: 20px;
     color: black;
-    text-decoration: none; 
+    text-decoration: none;
     font-weight: bold;
 }
-
 header nav a {
     display: flex;
     gap: 15px;
@@ -41,14 +38,12 @@ header nav a {
     transition: all 0.3s ease;
     text-decoration: none;
 }
-
 header nav a:hover {
     background: rgba(255, 255, 255, 0.3);
-    transform: scale(1.05); 
+    transform: scale(1.05);
     text-decoration: none;
-    color: #ffd700; 
+    color: #ffd700;
 }
-
 #focim {
     color: black;
     font-weight: bold;
@@ -61,35 +56,29 @@ header nav a:hover {
     top: 50%;
     transform: translateY(-50%);
 }
-
 main {
-    flex: 1; 
+    flex: 1;
     padding: 20px;
 }
-
 section.intro {
     margin-bottom: 30px;
 }
-
 section.intro h1 {
     font-size: 32px;
     color: rgb(207, 188, 79);
     font-weight: bold;
 }
-
 section.intro p {
     font-size: 18px;
     line-height: 1.6;
 }
-
-.news-container {
+.contact-container {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
     justify-content: space-between;
 }
-
-.news-card {
+.contact-card {
     background-color: #333;
     color: #f0f0f0;
     border-radius: 8px;
@@ -99,35 +88,54 @@ section.intro p {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
     transition: transform 0.3s ease;
 }
-
-.news-card:hover {
+.contact-card:hover {
     transform: scale(1.05);
 }
-
-.news-card h4 {
+.contact-card h4 {
     font-size: 22px;
     color: rgb(207, 188, 79);
     margin-bottom: 10px;
 }
-
-.news-card p {
+.contact-card p {
     font-size: 16px;
     line-height: 1.6;
     margin-bottom: 15px;
 }
-
-.news-card a {
+.contact-card a {
     color: rgb(207, 188, 79);
     text-decoration: none;
     font-weight: bold;
     transition: color 0.3s ease;
 }
-
-.news-card a:hover {
+.contact-card a:hover {
     color: #ffd700;
 }
-
-button {
+.contact-form {
+    background-color: #333;
+    color: #f0f0f0;
+    border-radius: 8px;
+    padding: 20px;
+    width: calc(66% - 20px);
+    box-sizing: border-box;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+.contact-form label {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 2px solid rgb(207, 188, 79);
+    border-radius: 5px;
+    background: #444;
+    color: #f0f0f0;
+    font-size: 16px;
+}
+.contact-form button {
     background-color: rgb(207, 188, 79);
     color: white;
     border: none;
@@ -137,11 +145,16 @@ button {
     border-radius: 5px;
     transition: background-color 0.3s ease;
 }
-
-button:hover {
+.contact-form button:hover {
     background-color: #b8860b;
 }
-
+.map-container {
+    width: 100%;
+    height: 300px;
+    margin-top: 20px;
+    border-radius: 8px;
+    overflow: hidden;
+}
 footer {
     background: linear-gradient(90deg, rgb(207, 188, 79), #b8860b);
     color: black;
@@ -155,7 +168,6 @@ footer {
     box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.5);
     position: relative;
 }
-
 footer p {
     flex-grow: 1;
     text-align: left;
@@ -163,7 +175,6 @@ footer p {
     font-weight: bold;
     padding-left: 120px;
 }
-
 #footer-img {
     max-height: 45px;
     position: absolute;
@@ -172,36 +183,32 @@ footer p {
     transform: translateY(-50%);
     width: auto;
 }
-
 @media (max-width: 768px) {
-    .news-card {
+    .contact-card {
         width: calc(50% - 20px);
     }
-}
-
-@media (max-width: 480px) {
-    .news-card {
+    .contact-form {
         width: 100%;
     }
-
+}
+@media (max-width: 480px) {
+    .contact-card {
+        width: 100%;
+    }
     header nav {
         flex-direction: column;
         align-items: flex-start;
     }
-
     header nav a {
         padding: 8px 15px;
     }
-
     footer p {
         font-size: 14px;
     }
-
     #focim {
         font-size: 24px;
     }
 }
-
 .more-details {
     display: none;
     margin-top: 10px;
@@ -211,22 +218,18 @@ footer p {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     color: black;
 }
-
 .more-details.show {
     display: block;
 }
-
-#footer_p{
+#footer_p {
     position: absolute;
     right: 20px;
 }
-
 #email a {
     color: black;
     text-decoration: none;
     font-weight: 600;
 }
-
 #email a:hover {
     text-decoration: underline;
     color: #605308;
