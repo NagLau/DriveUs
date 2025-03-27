@@ -1,11 +1,30 @@
 document.addEventListener('DOMContentLoaded', function () {
+    const nav = document.querySelector('header nav');
+    const toggleBtn = document.createElement('button');
+    toggleBtn.textContent = '☰';
+    toggleBtn.style.fontSize = '24px';
+    toggleBtn.style.background = 'none';
+    toggleBtn.style.border = 'none';
+    toggleBtn.style.color = 'black';
+    toggleBtn.style.cursor = 'pointer';
+    toggleBtn.style.position = 'absolute';
+    toggleBtn.style.right = '20px';
+    toggleBtn.style.top = '50%';
+    toggleBtn.style.transform = 'translateY(-50%)';
+    document.querySelector('header').appendChild(toggleBtn);
+
+    toggleBtn.addEventListener('click', function () {
+        nav.classList.toggle('active');
+    });
+
+document.addEventListener('DOMContentLoaded', function () {
     const cars = [
-        { element: document.querySelectorAll('.car-card')[0], type: 'sport', color: 'fekete' },
-        { element: document.querySelectorAll('.car-card')[1], type: 'luxus', color: 'szurke' },
-        { element: document.querySelectorAll('.car-card')[2], type: 'sport', color: 'piros pid' },
-        { element: document.querySelectorAll('.car-card')[3], type: 'luxus', color: 'fekete' },
-        { element: document.querySelectorAll('.car-card')[4], type: 'luxus', color: 'szurke' },
-        { element: document.querySelector('.featured-card'), type: 'sport', color: 'zold' }
+        { element: document.querySelectorAll('.car-card')[0], type: 'csaladi', color: 'fekete', brand: 'toyota' },
+        { element: document.querySelectorAll('.car-card')[1], type: 'luxus', color: 'szurke', brand: 'astonmartin' },
+        { element: document.querySelectorAll('.car-card')[2], type: 'sport', color: 'piros', brand: 'toyota' },
+        { element: document.querySelectorAll('.car-card')[3], type: 'luxus', color: 'fekete', brand: 'mercedes' },
+        { element: document.querySelectorAll('.car-card')[4], type: 'luxus', color: 'feher', brand: 'tesla' },
+        { element: document.querySelector('.featured-card'), type: 'sport', color: 'zold', brand: 'lamborghini' }
     ];
 
     function openModal(imgElement) {
@@ -25,8 +44,13 @@ document.addEventListener('DOMContentLoaded', function () {
         e.preventDefault();
         const carType = document.getElementById('tipus').value;
         const color = document.getElementById('szin').value;
+        const brand = document.getElementById('marka').value;
         cars.forEach(car => {
-            if ((carType === 'all' || car.type === carType) && (color === 'all' || car.color === color)) {
+            if (
+                (carType === 'all' || car.type === carType) &&
+                (color === 'all' || car.color === color) &&
+                (brand === 'all' || car.brand === brand)
+            ) {
                 car.element.style.display = 'block';
             } else {
                 car.element.style.display = 'none';
@@ -474,4 +498,5 @@ document.addEventListener('DOMContentLoaded', function () {
         newWindow.document.write(detailsPage);
         newWindow.document.close();
     };
+});
 });

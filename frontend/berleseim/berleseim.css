@@ -238,14 +238,12 @@ footer p {
 }
 
 #footer-img {
-    max-height: 50px;
-    position: absolute; 
+    max-height: 45px;
+    position: absolute;
     left: 10px;
     top: 50%;
     transform: translateY(-50%);
-    max-width: 100px;
-    width: 50%;
-    height: auto;
+    width: auto;
 }
 
 .more-details {
@@ -277,3 +275,17 @@ footer p {
     text-decoration: underline;
     color: #605308;
 }
+
+footer, footer p, #footer_p {
+    color: black !important;
+  }
+  
+  footer p {
+    flex-grow: 1;
+    text-align: left;
+    font-size: 16px;
+    font-weight: bold;
+    padding-left: 120px;
+    margin: 0;
+  }
+  

@@ -63,11 +63,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     <p><strong>Ár:</strong> ${rental.price}</p>
                     <p><strong>Állapot:</strong> ${getStatus(startDate, endDate, rental.status)}</p>
                     <p><strong>Fizetési státusz:</strong> ${rental.paymentStatus}</p>
-                    <a class="more-info">További részletek</a>
-                    <div class="more-details">
-                        <p>${rental.details}</p>
-                    </div>
-                </div>
             `;
 
             if (rental.status === 'pending') {

@@ -396,3 +396,24 @@ footer p {
 #kibe{
   color: black;
 }
+
+#focim {
+  color: black;
+  font-weight: bold;
+  display: flex;
+  align-items: center; 
+  justify-content: flex-start;
+  height: 100%;
+  position: absolute;
+  left: 0; 
+  top: 50%; 
+  transform: translateY(-50%); 
+  color: black;
+  font-weight: bold;
+  justify-content: flex-start;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
