@@ -17,7 +17,6 @@ document.addEventListener('DOMContentLoaded', function () {
         nav.classList.toggle('active');
     });
 
-document.addEventListener('DOMContentLoaded', function () {
     const cars = [
         { element: document.querySelectorAll('.car-card')[0], type: 'csaladi', color: 'fekete', brand: 'toyota' },
         { element: document.querySelectorAll('.car-card')[1], type: 'luxus', color: 'szurke', brand: 'astonmartin' },
@@ -64,6 +63,8 @@ document.addEventListener('DOMContentLoaded', function () {
         const month = String(today.getMonth() + 1).padStart(2, '0');
         const day = String(today.getDate()).padStart(2, '0');
         const formattedCurrentDate = `${year}-${month}-${day}`;
+        const basePath = "../kepek/"; // Alapértelmezett mappa a képekhez
+        const fullImgSrc = imgSrc.includes("../") ? imgSrc : basePath + imgSrc; // Ha az út már tartalmaz mappát, használja azt, különben hozzáadja az alapértelmezettet
         const detailsPage = `
             <!DOCTYPE html>
             <html lang="hu">
@@ -306,7 +307,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 </header>
                 <div class="content-wrapper">
                     <div class="car-image">
-                        <img src="${imgSrc}" alt="${carName}" onclick="openModal(this)">
+                        <img src="${fullImgSrc}" alt="${carName}" onclick="openModal(this)">
                     </div>
                     <div class="car-info">
                         <h2>${carName}</h2>
@@ -498,5 +499,4 @@ document.addEventListener('DOMContentLoaded', function () {
         newWindow.document.write(detailsPage);
         newWindow.document.close();
     };
-});
 });
