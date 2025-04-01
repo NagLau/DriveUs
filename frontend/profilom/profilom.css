@@ -27,17 +27,19 @@ header {
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  height: auto;
+  justify-content: center;
+  text-align: center;
+  height: 66px;
 }
 
 header nav {
+  width: 100%;
   display: flex;
+  justify-content: center;
   gap: 10px;
   flex-wrap: wrap;
-  justify-content: flex-end;
 }
+
 
 header nav a {
   color: black;
@@ -217,6 +219,7 @@ footer p {
   font-weight: bold;
   padding-left: 120px;
   margin: 0;
+  color: black;
 }
 
 .button-container {
@@ -479,4 +482,12 @@ footer p {
     right: auto;
     margin-top: 10px;
   }
+}
+
+#focim {
+  color: black;
+  font-weight: bold;
+  font-size: 24px;
+  margin: 0;
+  padding-left: 20px;
 }
