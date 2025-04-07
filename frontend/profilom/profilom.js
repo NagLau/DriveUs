@@ -242,6 +242,61 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         document.getElementById("profile-picture").click();
     });
+
+    let adminAttempts = 3;
+    let adminLockout = localStorage.getItem("adminLockout");
+    if (adminLockout) {
+        let lockoutTime = new Date(adminLockout);
+        let now = new Date();
+        if (now < lockoutTime) {
+            document.getElementById("admin-username").disabled = true;
+            document.getElementById("admin-password").disabled = true;
+            document.getElementById("admin-login-form").querySelector("button[type='submit']").disabled = true;
+            document.getElementById("admin-attempts").textContent = `Próbáld újra ${Math.ceil((lockoutTime - now) / 60000)} perc múlva!`;
+            setTimeout(() => {
+                localStorage.removeItem("adminLockout");
+                document.getElementById("admin-username").disabled = false;
+                document.getElementById("admin-password").disabled = false;
+                document.getElementById("admin-login-form").querySelector("button[type='submit']").disabled = false;
+                document.getElementById("admin-attempts").textContent = "";
+                adminAttempts = 3;
+            }, lockoutTime - now);
+        } else {
+            localStorage.removeItem("adminLockout");
+        }
+    }
+
+    document.getElementById("admin-login-form").addEventListener("submit", function(event) {
+        event.preventDefault();
+        const username = document.getElementById("admin-username").value;
+        const password = document.getElementById("admin-password").value;
+        if (username === "DriveUsAdmin" && password === "ADMIN2025") {
+            localStorage.setItem("isAdminLoggedIn", "true");
+            closeAdminLoginModal();
+            window.location.href = "../admin/admin_fooldal.html";
+        } else {
+            adminAttempts--;
+            if (adminAttempts > 0) {
+                document.getElementById("admin-attempts").textContent = `Hibás adatok! ${adminAttempts} próbálkozásod maradt.`;
+            } else {
+                document.getElementById("admin-attempts").textContent = "Próbáld újra 30 perc múlva!";
+                document.getElementById("admin-username").disabled = true;
+                document.getElementById("admin-password").disabled = true;
+                document.getElementById("admin-login-form").querySelector("button[type='submit']").disabled = true;
+                let lockoutTime = new Date();
+                lockoutTime.setMinutes(lockoutTime.getMinutes() + 30);
+                localStorage.setItem("adminLockout", lockoutTime);
+                setTimeout(() => {
+                    localStorage.removeItem("adminLockout");
+                    document.getElementById("admin-username").disabled = false;
+                    document.getElementById("admin-password").disabled = false;
+                    document.getElementById("admin-login-form").querySelector("button[type='submit']").disabled = false;
+                    document.getElementById("admin-attempts").textContent = "";
+                    adminAttempts = 3;
+                }, 30 * 60 * 1000);
+            }
+        }
+    });
 });
 
 function openModal(packageName, price) {
@@ -323,6 +378,15 @@ function closeLoginModal() {
 
 function closeRegisterModal() {
     document.getElementById("register-modal").style.display = "none";
+}
+
+function openAdminLoginModal() {
+    document.getElementById("login-modal").style.display = "none";
+    document.getElementById("admin-login-modal").style.display = "flex";
+}
+
+function closeAdminLoginModal() {
+    document.getElementById("admin-login-modal").style.display = "none";
 }
 
 document.getElementById("profile-picture").addEventListener("change", function(event) {

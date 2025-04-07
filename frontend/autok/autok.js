@@ -17,14 +17,29 @@ document.addEventListener('DOMContentLoaded', function () {
         nav.classList.toggle('active');
     });
 
-    const cars = [
-        { element: document.querySelectorAll('.car-card')[0], type: 'csaladi', color: 'fekete', brand: 'toyota' },
-        { element: document.querySelectorAll('.car-card')[1], type: 'luxus', color: 'szurke', brand: 'astonmartin' },
-        { element: document.querySelectorAll('.car-card')[2], type: 'sport', color: 'piros', brand: 'toyota' },
-        { element: document.querySelectorAll('.car-card')[3], type: 'luxus', color: 'fekete', brand: 'mercedes' },
-        { element: document.querySelectorAll('.car-card')[4], type: 'luxus', color: 'feher', brand: 'tesla' },
-        { element: document.querySelector('.featured-card'), type: 'sport', color: 'zold', brand: 'lamborghini' }
+    let cars = JSON.parse(localStorage.getItem('cars')) || [
+        { element: null, type: "sport", color: "zold", brand: "lamborghini", name: "Lamborghini Huracán", image: "../kepek/lambo.jpg", details: ["5.2L V10 motor", "631 LE", "0-100 km/h 2,9 másodperc", "Exkluzív olasz dizájn, lenyűgöző teljesítménnyel", "Luxus beltér, versenypályára optimalizált technológia"] },
+        { element: null, type: "csaladi", color: "fekete", brand: "toyota", name: "Toyota Camry", image: "../kepek/toyota_camry.jpg", details: ["Hibrid motor", "208 LE", "2018–2023", "Alacsony fogyasztás, kiváló városi és autópályás vezetéshez", "Tágas, kényelmes belső tér prémium anyagokkal", "Adaptív tempomat és fejlett vezetéstámogató rendszerek"] },
+        { element: null, type: "luxus", color: "szurke", brand: "astonmartin", name: "Aston Martin D9", image: "../kepek/bkep1.jpg", details: ["V12 szívómotor", "450–517 LE", "2004–2016", "Ikonikus brit luxusautó, elegáns és sportos megjelenással", "0-100 km/h 4,2 másodperc alatt, kézi és automata váltóval", "Bőr és karbon betétes belső tér, prémium hifi rendszerrel"] },
+        { element: null, type: "sport", color: "piros", brand: "toyota", name: "Toyota Supra", image: "../kepek/bkep2.jpg", details: ["3.0L szívómotor", "280–320 LE", "2002–2020", "Hátsókerék-meghajtás, dinamikus vezetési élmény", "Legendás japán sportautó, kiváló teljesítménnyel és megbízhatósággal", "Állítható sportfutómű és aerodinamikus dizájn"] },
+        { element: null, type: "luxus", color: "fekete", brand: "mercedes", name: "Mercedes-Benz G63 AMG", image: "../kepek/benz.jpg", details: ["4.0L V8 biturbó", "577 LE", "2019–2024", "Ikonikus off-road jármű, luxus és teljesítmény egyben", "Exkluzív belső tér, fűthető ülések és high-end hifi rendszer", "Összkerékhajtás és három differenciálzár a legkeményebb terepre"] },
+        { element: null, type: "luxus", color: "feher", brand: "tesla", name: "Tesla Model S Plaid", image: "../kepek/tesla.jpg", details: ["Elektromos hajtás", "1020 LE", "2021–jelen", "0-100 km/h 2,1 másodperc alatt, futurisztikus technológia", "600+ km hatótáv, gyorstöltési lehetőség", "Full önvezető funkciók és központi érintőképernyő"] }
     ];
+
+    const carContainer = document.querySelector('.car-container');
+    carContainer.innerHTML = '';
+
+    cars.forEach((car, index) => {
+        const carCard = document.createElement('div');
+        carCard.className = 'car-card';
+        carCard.innerHTML = `
+            <img src="${car.image}" alt="${car.name}">
+            <h3>${car.brand.charAt(0).toUpperCase() + car.brand.slice(1)}</h3>
+            <button onclick="openCarDetails('${car.name}', '${car.image}', ['${car.details.join("', '")}'])">Érdekel</button>
+        `;
+        carContainer.appendChild(carCard);
+        car.element = carCard;
+    });
 
     function openModal(imgElement) {
         var modal = document.createElement('div');
@@ -63,8 +78,6 @@ document.addEventListener('DOMContentLoaded', function () {
         const month = String(today.getMonth() + 1).padStart(2, '0');
         const day = String(today.getDate()).padStart(2, '0');
         const formattedCurrentDate = `${year}-${month}-${day}`;
-        const basePath = "../kepek/"; // Alapértelmezett mappa a képekhez
-        const fullImgSrc = imgSrc.includes("../") ? imgSrc : basePath + imgSrc; // Ha az út már tartalmaz mappát, használja azt, különben hozzáadja az alapértelmezettet
         const detailsPage = `
             <!DOCTYPE html>
             <html lang="hu">
@@ -307,7 +320,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 </header>
                 <div class="content-wrapper">
                     <div class="car-image">
-                        <img src="${fullImgSrc}" alt="${carName}" onclick="openModal(this)">
+                        <img src="${imgSrc}" alt="${carName}" onclick="openModal(this)">
                     </div>
                     <div class="car-info">
                         <h2>${carName}</h2>
