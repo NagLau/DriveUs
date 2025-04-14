@@ -1,0 +1,221 @@
+body {
+    background-color: #1a1a1a;
+    color: #f0f0f0;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: rgb(207, 188, 79);
+    background: linear-gradient(90deg, rgb(207, 188, 79), #b8860b);
+    color: white;
+    font-size: 18px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    position: relative; 
+    display: flex; 
+    align-items: center; 
+    justify-content: flex-end; 
+    padding: 10px 20px;
+    height: 60px; 
+}
+
+header nav {
+    display: flex;
+    gap: 15px; 
+    margin-right: 25px; 
+    margin-left: 20px;   
+    color: black;
+    text-decoration: none; 
+    font-weight: bold;
+}
+
+header nav a {
+    display: flex;
+    gap: 15px;
+    color: black;
+    font-weight: bold;
+    padding: 10px 20px;
+    align-items: center;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.1);
+    text-decoration: none;
+}
+
+header nav a:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.05); 
+    text-decoration: none;
+    color: #ffd700; 
+}
+
+#focim {
+    color: black;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+main {
+    flex: 1; 
+    padding: 20px;
+}
+
+section.intro {
+    margin-bottom: 30px;
+}
+
+section.intro h1 {
+    font-size: 32px;
+    color: rgb(207, 188, 79);
+    font-weight: bold;
+}
+
+section.intro p {
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+.news-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+}
+
+.news-card {
+    background-color: #333;
+    color: #f0f0f0;
+    border-radius: 8px;
+    padding: 20px;
+    width: calc(33% - 20px);
+    box-sizing: border-box;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease;
+}
+
+.news-card:hover {
+    transform: scale(1.05);
+}
+
+.news-card h4 {
+    font-size: 22px;
+    color: rgb(207, 188, 79);
+    margin-bottom: 10px;
+}
+
+.news-card p {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.news-card a {
+    color: rgb(207, 188, 79);
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.news-card a:hover {
+    color: #ffd700;
+}
+
+button {
+    background-color: rgb(207, 188, 79);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #b8860b;
+}
+
+footer {
+    background-color: rgb(207, 188, 79);
+    background: linear-gradient(90deg, rgb(207, 188, 79), #b8860b);
+    color: white;
+    text-align: center;
+    padding: 20px;
+    font-size: 18px;
+    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.5);
+    position: relative;
+}
+
+#footer-img {
+    max-height: 50px;
+    position: absolute; 
+    top: 0px;
+    bottom: 0px;
+    margin: 10px;
+    max-width: 100%;
+    height: auto;
+    width: 50%;
+    max-width: 100px; 
+    left: 10px;
+    top: 35%;
+    transform: translateY(-50%);
+}
+
+footer p {
+    flex-grow: 1; 
+    text-align: center;
+    font-size: 16px;
+    color: black;
+    font-weight: bold;
+}
+
+@media (max-width: 768px) {
+    .news-card {
+        width: calc(50% - 20px);
+    }
+}
+
+@media (max-width: 480px) {
+    .news-card {
+        width: 100%;
+    }
+
+    header nav {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    header nav a {
+        padding: 8px 15px;
+    }
+
+    footer p {
+        font-size: 14px;
+    }
+
+    #focim {
+        font-size: 24px;
+    }
+}
+
+.more-details {
+    display: none;
+    margin-top: 10px;
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color: black;
+}
+
+.more-details.show {
+    display: block;
+}

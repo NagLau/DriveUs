@@ -1,0 +1,209 @@
+body {
+    background-color: #1a1a1a;
+    color: #f0f0f0;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+
+header {
+    background-color: rgb(207, 188, 79);
+    background: linear-gradient(90deg, rgb(207, 188, 79), #b8860b);
+    color: white;
+    font-size: 18px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    position: relative; 
+    display: flex; 
+    align-items: center; 
+    justify-content: flex-end; 
+    padding: 10px 20px;
+    height: 60px; 
+}
+
+header nav {
+    display: flex;
+    gap: 15px; 
+    margin-right: 25px; 
+    margin-left: 20px;   
+}
+
+header nav a {
+    display: flex;
+    gap: 15px;
+    color: black;
+    font-weight: bold;
+    padding: 10px 20px;
+    align-items: center;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.1);
+    text-decoration: none;
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+header nav a:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.05); 
+    text-decoration: none;
+    color: #ffd700;
+}
+
+main {
+    flex: 1;
+    padding: 20px;
+}
+
+.intro {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.intro h1 {
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+.intro p {
+    font-size: 1.2em;
+    color: #dcdcdc;
+}
+
+.berles-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.berles-card {
+    background-color: #333;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    color: white;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.berles-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+}
+
+.berles-card h4 {
+    font-size: 1.5em;
+    margin-bottom: 15px;
+}
+
+.berles-card p {
+    font-size: 1.1em;
+    margin: 10px 0;
+}
+
+.berles-card a {
+    color: rgb(207, 188, 79);
+    font-weight: bold;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.berles-card a:hover {
+    text-decoration: underline;
+}
+
+footer {
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    padding: 10px 20px;
+    background-color: rgb(207, 188, 79);
+    background: linear-gradient(90deg, rgb(207, 188, 79), #b8860b);
+    color: white;
+    font-size: 18px;
+    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.5);
+    position: relative; 
+    height: 60px;
+}
+
+#img1 {
+    max-height: 50px;
+    position: absolute; 
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    margin: 10px; 
+    max-width: 100%;
+    height: auto;
+    width: 50%;
+    max-width: 100px; 
+}
+
+footer p {
+    text-align: center;
+    font-size: 16px;
+    color: black;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+}
+
+#focim {
+    color: black;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#footer-img {
+    max-height: 50px;
+    position: absolute; 
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    max-width: 100px;
+    width: 50%;
+    height: auto;
+}
+
+.more-details {
+    display: none;
+    margin-top: 10px;
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color: black;
+}
+
+.more-details.show {
+    display: block;
+}
+
+.more-details {
+    display: none;
+    margin-top: 10px;
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.more-details.show {
+    display: block;
+}
+
+.berles-card a {
+    cursor: pointer;
+    color: #b8860b;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.berles-card a:hover {
+    color: #ffd700;
+}
